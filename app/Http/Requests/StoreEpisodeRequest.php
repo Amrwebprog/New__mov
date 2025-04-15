@@ -25,7 +25,7 @@ class StoreEpisodeRequest extends FormRequest
             'image' => 'image|required|file',
             'episode_number' => 'required|max:30|string',
             'description' => 'string|max:150|required',
-            'episode_url' => 'required|max:1024|file',
+            'episode_url' => 'required|max:2048|file',
         ];
     }
 }

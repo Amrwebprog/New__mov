@@ -22,7 +22,7 @@ class StoreWhereSeriesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'series_name' => 'required|max:20|exists:series,series_name'
+            'series_name' => 'required|max:40|exists:series,series_name'
         ];
     }
 }

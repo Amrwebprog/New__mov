@@ -25,7 +25,10 @@ class StoreSubscriptionRequest extends FormRequest
             'name'=>'required',
             'period'=>'required',
             'price'=>'required|regex:/\d/',
-            'discount'=>'required|regex:/\d/'
+            'discount'=>'required|regex:/\d/',
+            'quality'=>'required|string|max:40',
+            'popular'=>'required|max:40|regex:/\d/',
+            'resolution'=>'required|max:40|string',
         ];
     }
 }

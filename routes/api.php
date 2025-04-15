@@ -35,13 +35,18 @@ Route::prefix('Auth')->group(function () {
 Route::prefix('Users')->group(function () {
     Route::get('/', [UserController::class, 'index'])->middleware('auth:sanctum');
     Route::get('/{user}', [UserController::class, 'show'])->middleware('auth:sanctum');
+    Route::get('/deleted', [UserController::class, 'deleted'])->middleware('auth:sanctum');
     Route::post('/update', [UserController::class, 'update'])->middleware('auth:sanctum');
+    Route::post('/update_admin', [UserController::class, 'admin_update'])->middleware('auth:sanctum');
+    Route::get('restore/{user}', [UserController::class, 'restore'])->middleware('auth:sanctum');
+    Route::delete('delete/{user}', [UserController::class, 'delete'])->middleware('auth:sanctum');
+    Route::get('delete_from_trash/{user}', [UserController::class, 'delete_from_trash'])->middleware('auth:sanctum');
 });
 //country
 Route::prefix('Countries')->group(function () {
-    Route::get('/deleted', [CountryController::class, 'deleted'])->middleware('auth:sanctum');
     Route::post('/store', [CountryController::class, 'store'])->middleware('auth:sanctum');
     Route::put('/update', [CountryController::class, 'update'])->middleware('auth:sanctum');
+    Route::get('/deleted', [CountryController::class, 'deleted'])->middleware('auth:sanctum');
     Route::get('/', [CountryController::class, 'index']);
     Route::get('/{country}', [CountryController::class, 'show'])->middleware('auth:sanctum');
     Route::get('restore/{country}', [CountryController::class, 'restore'])->middleware('auth:sanctum');
@@ -131,7 +136,7 @@ Route::prefix('Films')->group(function () {
     Route::get('/deleted', [FilmController::class, 'deleted'])->middleware('auth:sanctum');
     Route::get('/', [FilmController::class, 'index']);
     Route::post('/store', [FilmController::class, 'store'])->middleware('auth:sanctum');
-    Route::post('/update', [FilmController::class, 'update'])->middleware('auth:sanctum');
+    Route::put('/update', [FilmController::class, 'update'])->middleware('auth:sanctum');
     Route::get('/{film}', [FilmController::class, 'show'])->middleware('auth:sanctum');
     Route::get('restore/{film}', [FilmController::class, 'restore'])->middleware('auth:sanctum');
     Route::delete('delete/{film}', [FilmController::class, 'delete'])->middleware('auth:sanctum');

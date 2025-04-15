@@ -72,9 +72,8 @@ class SubscriptionController extends Controller
         //validate
         $request = $request->validated();
         $Subscription = $Subscription->validated();
-        $subscription_id = Subscription::all()->where('name', $Subscription['name_old'])->first()->id;
         //updata data;
-        $update = DB::table('subscriptions')->where('id', $subscription_id)->update($request);
+        $update = DB::table('subscriptions')->where('id', $Subscription['id'])->update($request);
         //check if update
         if ($update) {
             return $this->response(code: 201, data: $update);

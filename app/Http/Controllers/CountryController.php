@@ -91,7 +91,7 @@ class CountryController extends Controller
     {
         //
     }
-    public function restore(Country $country)
+    public function restore($country)
     {
 
         $restore = Country::withTrashed()->where('id', $country)->restore();
@@ -105,7 +105,7 @@ class CountryController extends Controller
         return $this->response(code: 202, data: $delete);
 
     }
-    public function deleted($country)
+    public function deleted(Country $country)
     {
 
         $deleted = $country->onlyTrashed()->get();

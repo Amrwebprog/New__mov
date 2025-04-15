@@ -46,11 +46,11 @@ class EpisodeController extends Controller
         $fileName = time() . '.' . $request['image']->getClientOriginalName();
         $image_path = $request['image']->storeAs('episode_images', $fileName, 'public');
         $request['image'] = $image_path;
-        
+
         //uplode episode
         $episodename = time() . '.' . $request['episode_url']->getClientOriginalName();
         $video_path = $request['episode_url']->storeAs('episodes', $episodename, 'public');
-        
+
         $request['episode_url'] = $video_path;
         //Series_id
         $Series_id = Series::all()->where('series_name', $Series['series_name'])->first()->id;
@@ -60,7 +60,7 @@ class EpisodeController extends Controller
             ['season_number', $Season['season_number']],
         ])->first()->id;
         $request['season_id'] = $season_id;
-        //insert data   
+        //insert data
         $insert = Episode::create([
             'episode_number' => $request['episode_number'],
             'description' => $request['description'],
@@ -121,6 +121,10 @@ class EpisodeController extends Controller
             ['season_number', $Season['season_number']],
         ])->first()->id;
         $request['season_id'] = $season_id_new;
+        //image
+        // $fileName = time() . '.' . $request['image']->getClientOriginalName();
+        // $image_path = $request['image']->storeAs('episode_images', $fileName, 'public');
+        // $request['image'] = $image_path;
         //seasons_id_old
         //Series_id_old
         $Series_id_old = Series::all()->where('series_name', $episode_old['series_name_old'])->first()->id;
@@ -129,6 +133,7 @@ class EpisodeController extends Controller
             ['series_id', $Series_id_old],
             ['season_number', $episode_old['season_number_old']],
         ])->first()->id;
+        // dd($season_id_old);
         //update data
         $update = DB::table('episodes')->where([['episode_number', $episode_old['episode_number_old']], ['season_id', $season_id_old]])->update($request);
         if ($update) {

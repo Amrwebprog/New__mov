@@ -24,7 +24,7 @@ class StoreFilmRequest extends FormRequest
         return [
             'description' => 'required|string|max:150',
             'name' => 'required|string|max:30',
-            'film_url' => 'required|max:1024|file',
+            'film_url' => 'required|max:2024|file',
             'image' => 'file',
             'story' => 'required',
             'quality' => 'required',

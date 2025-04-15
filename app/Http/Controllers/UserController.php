@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreWhereCountryRequest;
+use App\Http\Requests\Updateadmain_user;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Country;
 use App\Models\SubscriptionDetails;
@@ -96,5 +97,51 @@ class UserController extends Controller
 
 
     }
+  }
+  public function admin_update(Updateadmain_user $Request , StoreWhereCountryRequest $storeWhereCountryRequest){
+    // validate
+    $Request=$Request->validated();
+    $storeWhereCountryRequest=$storeWhereCountryRequest->validated();
+    //user_id
+    $user_id=Auth::user()->id;
+    //upload image
+    if ($Request['image']) {
+        $fileName = time() . '.' . $Request['image']->getClientOriginalName();
+        $path = $Request['image']->storeAs('user_images', $fileName, 'public');
+        $Request['image'] = $path;}
+        //hash_password
+        $Request['password']=Hash::make($Request['password']);
+      //country_id
+      $country_id = Country::all()->where('country', $storeWhereCountryRequest['country'])->first()->id;
+      $Request['country_id'] = $country_id;
+     //update
+     $update=DB::table('users')->where('id',$user_id)->update($Request);
+     if($update){
+        return $this->response(code: 201, data: $update);
+    } else {
+      return $this->response(code: 401);
+    }
+
+
+  }
+  public function delete(User $user)
+  {
+      $delete = $user->delete();
+      return $this->response(code: 202, data: $delete);
+  }
+  public function deleted(User $user)
+  {
+      $deleted = $user->onlyTrashed()->get();
+      return $this->response(code: 302, data: $deleted);
+  }
+  public function restore($user)
+  {
+      $User = User::withTrashed()->where('id', $user)->restore();
+      return $this->response(code: 202, data: $User);
+  }
+  public function delete_from_trash($user)
+  {
+      $User = User::where('id', $user)->forceDelete();
+      return $this->response(code: 202, data: $User);
   }
 }

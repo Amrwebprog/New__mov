@@ -87,12 +87,12 @@ class FilmController extends Controller
         $image = time() . '.' . $request['image']->getClientOriginalName();
         $image_path = $request['image']->storeAs('film_images', $image, 'public');
         $request['image'] = $image_path;
-        //uplode film 
+        //uplode film
         $film_name = time() . '.' . $request['film_url']->getClientOriginalName();
         $film_path = $request['film_url']->storeAs('Films', $film_name, 'public');
         $request['film_url'] = $film_path;
 
-        //get country_id 
+        //get country_id
         $country_id = Country::all()->where('country', $storeWhereCountryRequest['country'])->first()->id;
         $request['country_id'] = $country_id;
         //get genre_id
@@ -119,7 +119,7 @@ class FilmController extends Controller
             $film = Film::with('genre', 'film_watchings', 'country')->find($id);
             return $this->response(code: 200, data: $film);
         } else {
-            return 'you can\'t watch this episode untill pay it';
+            return 'you can\'t watch this Film untill pay it';
         }
     }
 
@@ -150,7 +150,7 @@ class FilmController extends Controller
         $image = time() . '.' . $request['image']->getClientOriginalName();
         $image_path = $request['image']->storeAs('user_images', $image, 'public');
         $request['image'] = $image_path;
-        //get country_id 
+        //get country_id
         $country_id = Country::all()->where('country', $storeWhereCountryRequest['country'])->first()->id;
         $request['country_id'] = $country_id;
         //find genre_id

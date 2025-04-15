@@ -25,7 +25,7 @@ class UpdateWhereEpisodeRequest extends FormRequest
             'series_name_old' => 'required|max:40|exists:series,series_name',
             'season_number_old' => 'required|exists:seasons,season_number|max:3|regex:/\d/',
             'episode_number_old' => 'required|max:50|string',
-
+            'image' => 'image|file',
         ];
     }
 }

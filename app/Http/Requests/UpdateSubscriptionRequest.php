@@ -22,10 +22,13 @@ class UpdateSubscriptionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'period' => 'required',
-            'price' => 'required|regex:/\d/',
-            'discount' => 'required|regex:/\d/'
+            'name'=>'required',
+            'period'=>'required',
+            'price'=>'required|regex:/\d/',
+            'discount'=>'required|regex:/\d/',
+            'quality'=>'required|string|max:40',
+            'popular'=>'required|max:40|regex:/\d/',
+            'resolution'=>'required|max:40|string',
         ];
     }
 }
